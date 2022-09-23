@@ -11,7 +11,5 @@ create table user(
                      primary key (id)
 )ENGINE = InnoDB default CHARSET=utf8mb4 collate=utf8mb4_unicode_ci;
 
-select * from user;
 
 
-insert into user (name, age, sex, phone, adress) values ('张三','18','男','17349788901','天国');
