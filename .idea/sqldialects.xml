@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="SqlDialectMappings">
-    <file url="file://$PROJECT_DIR$/script/sql/create.sql" dialect="MySQL" />
-    <file url="file://$PROJECT_DIR$/script/sql/select.sql" dialect="GenericSQL" />
+    <file url="file://$PROJECT_DIR$/NOTE/sql/create.sql" dialect="MySQL" />
+    <file url="file://$PROJECT_DIR$/NOTE/sql/select.sql" dialect="GenericSQL" />
   </component>
 </project>
