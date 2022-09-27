@@ -1,5 +1,7 @@
 package com.banksy.lm_server.service.Impl;
 
+import cn.hutool.core.date.DateUtil;
+import cn.hutool.core.util.IdUtil;
 import com.banksy.lm_server.controller.request.UserPageRequest;
 import com.banksy.lm_server.entity.User;
 import com.banksy.lm_server.mapper.UserMapper;
@@ -9,6 +11,7 @@ import com.github.pagehelper.PageInfo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -23,8 +26,32 @@ public class UserService implements IUserService {
     UserMapper userMapper;
 
     @Override
+    public void save(User user) {
+        Date date = new Date();
+        // 当做卡号来处理
+        user.setUsername(DateUtil.format(date, "yyyyMMdd") + IdUtil.fastSimpleUUID());
+        userMapper.save(user);
+    }
+
+    @Override
+    public void deleteById(Integer id) {
+        userMapper.deleteById(id);
+    }
+
+    @Override
+    public void update(User user) {
+        user.setUpdatetime(new Date());
+        userMapper.updateById(user);
+    }
+
+    @Override
     public List<User> listUsers() {
         return userMapper.listUsers();
+    }
+
+    @Override
+    public User getById(Integer id) {
+        return userMapper.getById(id);
     }
 
     @Override
@@ -33,4 +60,5 @@ public class UserService implements IUserService {
         List<User> users = userMapper.listByCondition(userPageRequest);
         return new PageInfo<>(users);
     }
+
 }

@@ -2,6 +2,8 @@ package com.banksy.lm_server.entity;
 
 import lombok.Data;
 
+import java.util.Date;
+
 /**
  * @Author banksy
  * @Data 2022/9/23 9:35 PM
@@ -16,4 +18,7 @@ public class User {
     private String sex;
     private String phone;
     private String address;
+
+    private Date createtime;
+    private Date updatetime;
 }

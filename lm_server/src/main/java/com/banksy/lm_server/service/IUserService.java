@@ -7,8 +7,15 @@ import java.util.List;
 
 public interface IUserService {
 
+    void save(User user);
+
+    void deleteById(Integer id);
+
+    void update(User user);
+
     List<User> listUsers();
 
-    Object page(UserPageRequest userPageRequest);
+    User getById(Integer id);
 
+    Object page(UserPageRequest userPageRequest);
 }
