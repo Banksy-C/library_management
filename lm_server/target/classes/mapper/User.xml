@@ -6,35 +6,44 @@
 <mapper namespace="com.banksy.lm_server.mapper.UserMapper">
 
     <insert id="save">
-        insert into user(name, username, age, sex, phone, address)
+        insert into lm_user(vc_name, vc_username, f_age, vc_sex, vc_phone, vc_address)
         values(#{name}, #{username}, #{age}, #{sex}, #{phone}, #{address})
     </insert>
     
     <delete id="deleteById">
-        delete from user where id = #{id}
+        delete from lm_user where f_id = #{id}
     </delete>
 
     <select id="listUsers" resultType="com.banksy.lm_server.entity.User">
-        select id, name, username, age, sex, phone, address
-          from user
+        select f_id id, vc_name name, vc_username username, f_age age, vc_sex sex, vc_phone phone, vc_address address
+          from lm_user
         order by id desc
     </select>
     
     <select id="getById" resultType="com.banksy.lm_server.entity.User">
-        select id, name, username, age, sex, phone, address
-          from user
+        select f_id id, vc_name name, vc_username username, f_age age, vc_sex sex, vc_phone phone, vc_address address
+          from lm_user
          where id = #{id}
     </select>
 
     <select id="listByCondition" resultType="com.banksy.lm_server.entity.User">
-        select id, name, username, age, sex, phone, address
-          from user
+        SELECT t.f_id id,
+               t.vc_userid userid,
+               t.vc_name name,
+               t.f_age age,
+               t.vc_sex sex,
+               t.vc_phone phone,
+               t.vc_address address,
+               t.d_begin_date begindate,
+               t.d_end_date enddate,
+               t.d_update updatetime
+        FROM lm_user t
         <where>
             <if test="name != null and name != ''">
-                name like concat('%', #{ name }, '%')
+                t.vc_name like concat('%', #{ name }, '%')
             </if>
             <if test="phone != null and phone != ''">
-                and phone  like concat('%', #{ phone }, '%')
+                and t.vc_phone  like concat('%', #{ phone }, '%')
             </if>
         </where>
         order by id desc

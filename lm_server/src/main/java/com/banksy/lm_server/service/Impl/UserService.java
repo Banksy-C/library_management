@@ -29,7 +29,7 @@ public class UserService implements IUserService {
     public void save(User user) {
         Date date = new Date();
         // 当做卡号来处理
-        user.setUsername(DateUtil.format(date, "yyyyMMdd") + IdUtil.fastSimpleUUID());
+        user.setUserid(DateUtil.format(date, "yyyyMMdd") + IdUtil.fastSimpleUUID());
         userMapper.save(user);
     }
 
@@ -55,7 +55,7 @@ public class UserService implements IUserService {
     }
 
     @Override
-    public Object page(UserPageRequest userPageRequest) {
+    public PageInfo<User> page(UserPageRequest userPageRequest) {
         PageHelper.startPage(userPageRequest.getPageNum(), userPageRequest.getPageSize());
         List<User> users = userMapper.listByCondition(userPageRequest);
         return new PageInfo<>(users);

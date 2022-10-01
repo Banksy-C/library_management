@@ -2,6 +2,7 @@ package com.banksy.lm_server.service;
 
 import com.banksy.lm_server.controller.request.UserPageRequest;
 import com.banksy.lm_server.entity.User;
+import com.github.pagehelper.PageInfo;
 
 import java.util.List;
 
@@ -17,5 +18,5 @@ public interface IUserService {
 
     User getById(Integer id);
 
-    Object page(UserPageRequest userPageRequest);
+    PageInfo<User> page(UserPageRequest userPageRequest);
 }

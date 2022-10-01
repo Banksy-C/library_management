@@ -19,3 +19,6 @@ insert into user (name, age, sex, phone, address) values ('李','18','男','1734
 insert into user (name, age, sex, phone, address) values ('王','19','男','17349788901','王国');
 insert into user (name, age, sex, phone, address) values ('赵','20','女','17349788901','赵国');
 insert into user (name, age, sex, phone, address) values ('燕','21','男','17349788901','燕国');
+
+
+update user set username = '11110' where id = 15;
