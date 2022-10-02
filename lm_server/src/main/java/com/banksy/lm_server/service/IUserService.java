@@ -16,7 +16,7 @@ public interface IUserService {
 
     List<User> listUsers();
 
-    User getById(Integer id);
+    User getById(String userid);
 
     PageInfo<User> page(UserPageRequest userPageRequest);
 }

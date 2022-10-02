@@ -6,7 +6,7 @@
 <mapper namespace="com.banksy.lm_server.mapper.UserMapper">
 
     <insert id="save">
-        insert into lm_user(vc_name, vc_username, f_age, vc_sex, vc_phone, vc_address)
+        insert into lm_user(vc_name, vc_userid, f_age, vc_sex, vc_phone, vc_address)
         values(#{name}, #{username}, #{age}, #{sex}, #{phone}, #{address})
     </insert>
     
@@ -15,15 +15,15 @@
     </delete>
 
     <select id="listUsers" resultType="com.banksy.lm_server.entity.User">
-        select f_id id, vc_name name, vc_username username, f_age age, vc_sex sex, vc_phone phone, vc_address address
+        select f_id id, vc_name name, vc_userid userid, f_age age, vc_sex sex, vc_phone phone, vc_address address
           from lm_user
-        order by id desc
+        order by f_id desc
     </select>
     
     <select id="getById" resultType="com.banksy.lm_server.entity.User">
-        select f_id id, vc_name name, vc_username username, f_age age, vc_sex sex, vc_phone phone, vc_address address
+        select f_id id, vc_name name, vc_userid userid, f_age age, vc_sex sex, vc_phone phone, vc_address address
           from lm_user
-         where id = #{id}
+         where vc_userid = #{userid}
     </select>
 
     <select id="listByCondition" resultType="com.banksy.lm_server.entity.User">
@@ -36,6 +36,7 @@
                t.vc_address address,
                t.d_begin_date begindate,
                t.d_end_date enddate,
+               t.d_create_date createdate,
                t.d_update updatetime
         FROM lm_user t
         <where>
@@ -46,7 +47,7 @@
                 and t.vc_phone  like concat('%', #{ phone }, '%')
             </if>
         </where>
-        order by id desc
+        order by t.f_id desc
     </select>
 
 </mapper>

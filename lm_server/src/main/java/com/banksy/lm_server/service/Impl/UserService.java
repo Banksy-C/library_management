@@ -50,13 +50,14 @@ public class UserService implements IUserService {
     }
 
     @Override
-    public User getById(Integer id) {
-        return userMapper.getById(id);
+    public User getById(String userid) {
+        return userMapper.getById(userid);
     }
 
     @Override
     public PageInfo<User> page(UserPageRequest userPageRequest) {
-        PageHelper.startPage(userPageRequest.getPageNum(), userPageRequest.getPageSize());
+
+        PageHelper.startPage(userPageRequest.getPageNum(), userPageRequest.getPageSize());//分页
         List<User> users = userMapper.listByCondition(userPageRequest);
         return new PageInfo<>(users);
     }

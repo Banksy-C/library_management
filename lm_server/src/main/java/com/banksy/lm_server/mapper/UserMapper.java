@@ -17,7 +17,7 @@ public interface UserMapper {
 
     List<User> listUsers();
 
-    User getById(Integer id);
+    User getById(String userid);
 
     List<User> listByCondition(UserPageRequest userPageRequest);
 }

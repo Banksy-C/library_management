@@ -81,9 +81,9 @@ public class UserController {
      * @Param [id]
      * @return com.banksy.lm_server.common.Result
      **/
-    @GetMapping("/{id}")
-    public Result getById(@PathVariable Integer id) {
-        User user = userService.getById(id);
+    @GetMapping("/{userid}")
+    public Result getById(@PathVariable String userid) {
+        User user = userService.getById(userid);
         return Result.success(user);
     }
 
