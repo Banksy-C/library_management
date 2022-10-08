@@ -5,7 +5,6 @@ import cn.hutool.core.util.IdUtil;
 import com.banksy.lm_server.controller.request.AdminPageRequest;
 import com.banksy.lm_server.entity.Admin;
 import com.banksy.lm_server.mapper.AdminMapper;
-import com.banksy.lm_server.service.IAdminService;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,7 +20,7 @@ import java.util.List;
  **/
 
 @Service
-public class AdminService implements IAdminService {
+public class AdminServiceIpml implements com.banksy.lm_server.service.AdminService {
 
     @Autowired
     AdminMapper adminMapper;

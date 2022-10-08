@@ -6,7 +6,7 @@ import com.github.pagehelper.PageInfo;
 
 import java.util.List;
 
-public interface IUserService {
+public interface UserService {
 
     void save(User user);
 

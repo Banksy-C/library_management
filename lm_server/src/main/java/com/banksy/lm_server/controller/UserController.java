@@ -3,7 +3,7 @@ package com.banksy.lm_server.controller;
 import com.banksy.lm_server.common.Result;
 import com.banksy.lm_server.controller.request.UserPageRequest;
 import com.banksy.lm_server.entity.User;
-import com.banksy.lm_server.service.IUserService;
+import com.banksy.lm_server.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -20,7 +20,7 @@ import java.util.List;
 public class UserController {
 
     @Autowired
-    IUserService userService;
+    UserService userService;
 
     /***
      * 增

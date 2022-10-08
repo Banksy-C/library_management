@@ -2,9 +2,8 @@ package com.banksy.lm_server.controller;
 
 import com.banksy.lm_server.common.Result;
 import com.banksy.lm_server.controller.request.AdminPageRequest;
-import com.banksy.lm_server.controller.request.UserPageRequest;
 import com.banksy.lm_server.entity.Admin;
-import com.banksy.lm_server.service.IAdminService;
+import com.banksy.lm_server.service.AdminService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -21,7 +20,7 @@ import java.util.List;
 public class AdminController {
 
     @Autowired
-    IAdminService adminService;
+    AdminService adminService;
 
 
     /**

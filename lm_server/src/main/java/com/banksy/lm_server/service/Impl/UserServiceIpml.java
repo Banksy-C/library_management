@@ -5,7 +5,7 @@ import cn.hutool.core.util.IdUtil;
 import com.banksy.lm_server.controller.request.UserPageRequest;
 import com.banksy.lm_server.entity.User;
 import com.banksy.lm_server.mapper.UserMapper;
-import com.banksy.lm_server.service.IUserService;
+import com.banksy.lm_server.service.UserService;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,7 +20,7 @@ import java.util.List;
  * @Version 1.0
  **/
 @Service
-public class UserService implements IUserService {
+public class UserServiceIpml implements UserService {
 
     @Autowired
     UserMapper userMapper;

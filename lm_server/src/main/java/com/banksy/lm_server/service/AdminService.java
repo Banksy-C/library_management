@@ -7,7 +7,7 @@ import com.github.pagehelper.PageInfo;
 
 import java.util.List;
 
-public interface IAdminService {
+public interface AdminService {
 
     void save(Admin admin);
 
