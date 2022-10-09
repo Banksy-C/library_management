@@ -13,6 +13,17 @@
     <delete id="deleteById">
         delete from lm_user where f_id = #{id}
     </delete>
+    
+    <update id="updateById">
+        update user
+           set vc_name = #{name},
+               f_age = #{age},
+               vc_sex = #{sex},
+               vc_phone = #{phone},
+               vc_addresse = #{address},
+               d_update = #{updatetime}
+         where f_id = #{id}
+    </update>
 
     <select id="listUsers" resultType="com.banksy.lm_server.entity.User">
         select f_id id, vc_name name, vc_userid userid, f_age age, vc_sex sex, vc_phone phone, vc_address address
