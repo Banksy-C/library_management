@@ -22,7 +22,7 @@ public class UserController {
     @Autowired
     UserService userService;
 
-    /***
+    /**
      * 增
      * @Author banksy
      * @Date 2022/9/27 12:45 PM
@@ -35,20 +35,20 @@ public class UserController {
         return Result.success();
     }
 
-    /***
-     * 删除【根据ID】
+    /**
+     * 删除【根据userid】
      * @Author banksy
      * @Date 2022/9/27 12:48 PM
      * @Param [id]
      * @return com.banksy.lm_server.common.Result
      **/
-    @DeleteMapping("/delete/{id}")
-    public Result deleteById(@PathVariable Integer id) {
-        userService.deleteById(id);
+    @DeleteMapping("/delete/{userid}")
+    public Result deleteById(@PathVariable String userid) {
+        userService.deleteById(userid);
         return Result.success();
     }
 
-    /***
+    /**
      * 改
      * @Author banksy
      * @Date 2022/9/27 12:48 PM
@@ -62,7 +62,7 @@ public class UserController {
     }
 
     /**
-     * 查【整表】
+     * 查【整表】没用
      * @Author banksy
      * @Date 2022/9/24 12:48 PM
      * @Param []
@@ -74,8 +74,8 @@ public class UserController {
         return Result.success(userList);
     }
 
-    /***
-     * 查【根据ID】
+    /**
+     * 查【根据userId】
      * @Author banksy
      * @Date 2022/9/27 12:49 PM
      * @Param [id]

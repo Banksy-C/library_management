@@ -6,7 +6,8 @@ import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 
 /**
- * 全局异常
+ * 全局异常处理
+ *
  * @Author banksy
  * @Data 2022/9/30 11:10 PM
  * @Version 1.0
@@ -22,7 +23,7 @@ public class ExceptionHandle {
     }
 
     @ExceptionHandler(value = Exception.class)
-    public Result exceptionError(Exception e) {
+    public Result exceptionError(Exception e) {//全局最大Exception错误，未捕获的错误
         log.error("系统错误", e);
         return Result.error("系统错误");
     }

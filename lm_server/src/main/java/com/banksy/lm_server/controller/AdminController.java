@@ -1,8 +1,12 @@
 package com.banksy.lm_server.controller;
 
 import com.banksy.lm_server.common.Result;
+import com.banksy.lm_server.controller.dto.LoginDTO;
 import com.banksy.lm_server.controller.request.AdminPageRequest;
+import com.banksy.lm_server.controller.request.LoginRequest;
+import com.banksy.lm_server.controller.request.UserPageRequest;
 import com.banksy.lm_server.entity.Admin;
+import com.banksy.lm_server.entity.User;
 import com.banksy.lm_server.service.AdminService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -14,7 +18,7 @@ import java.util.List;
  * @Data 2022/10/1 6:45 PM
  * @Version 1.0
  **/
-//@CrossOrigin
+@CrossOrigin
 @RestController
 @RequestMapping("/admin")
 public class AdminController {
@@ -22,12 +26,22 @@ public class AdminController {
     @Autowired
     AdminService adminService;
 
+    @PostMapping("/login")
+    public Result login(@RequestBody LoginRequest request) {
+        LoginDTO login = adminService.login(request);
+        return Result.success(login);
+    }
+
+
+
+
+
 
     /**
      * 增
      * @Author banksy
      * @Date 2022/9/27 12:45 PM
-     * @Param [admin]
+     * @Param [user]
      * @return com.banksy.lm_server.common.Result
      **/
     @PostMapping("/save")
@@ -36,20 +50,20 @@ public class AdminController {
         return Result.success();
     }
 
-    /***
+    /**
      * 删除【根据ID】
      * @Author banksy
      * @Date 2022/9/27 12:48 PM
      * @Param [id]
      * @return com.banksy.lm_server.common.Result
      **/
-    @DeleteMapping("/delete/{id}")
-    public Result deleteById(@PathVariable Integer id) {
-        adminService.deleteById(id);
+    @DeleteMapping("/delete/{userid}")
+    public Result deleteById(@PathVariable String userid) {
+        adminService.deleteById(userid);
         return Result.success();
     }
 
-    /***
+    /**
      * 改
      * @Author banksy
      * @Date 2022/9/27 12:48 PM
@@ -63,7 +77,7 @@ public class AdminController {
     }
 
     /**
-     * 查【整表】
+     * 查【整表】没用
      * @Author banksy
      * @Date 2022/9/24 12:48 PM
      * @Param []
@@ -71,20 +85,20 @@ public class AdminController {
      **/
     @GetMapping("/list")
     public Result getListUsers() {
-        List<Admin> adminList = adminService.listUsers();
+        List<Admin> adminList = adminService.listAdmins();
         return Result.success(adminList);
     }
 
-    /***
-     * 查【根据ID】
+    /**
+     * 查【根据adminId】
      * @Author banksy
      * @Date 2022/9/27 12:49 PM
      * @Param [id]
      * @return com.banksy.lm_server.common.Result
      **/
-    @GetMapping("/{id}")
-    public Result getById(@PathVariable Integer id) {
-        Admin admin = adminService.getById(id);
+    @GetMapping("/{adminid}")
+    public Result getById(@PathVariable String adminid) {
+        Admin admin = adminService.getById(adminid);
         return Result.success(admin);
     }
 
@@ -99,4 +113,5 @@ public class AdminController {
     public Result getPage(AdminPageRequest adminPageRequest){
         return Result.success(adminService.page(adminPageRequest));
     }
+
 }

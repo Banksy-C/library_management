@@ -3,6 +3,8 @@ package com.banksy.lm_server.common;
 import lombok.Data;
 
 /**
+ * 统一返回结果封装
+ *
  * @Author banksy
  * @Data 2022/9/23 10:05 PM
  * @Version 1.0

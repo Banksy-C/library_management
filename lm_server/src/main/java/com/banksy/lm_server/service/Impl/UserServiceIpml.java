@@ -27,15 +27,20 @@ public class UserServiceIpml implements UserService {
 
     @Override
     public void save(User user) {
-        Date date = new Date();
-        // 当做卡号来处理
-        user.setUserid(DateUtil.format(date, "yyyyMMdd") + IdUtil.fastSimpleUUID());
-        userMapper.save(user);
+        // 当做卡号：当前日期 + 当前日期注册量+1
+        String yyyyMMdd = DateUtil.format(new Date(), "yyyyMMdd");//当前日期
+        int userIdDayCount = userMapper.getUserIdDayCount(yyyyMMdd) + 1;//获取当前日期数量 + 1
+
+        if (userIdDayCount < 10000) { //限制日注册数量, 小于10000
+            String str = String.format("%04d", userIdDayCount);
+            user.setUserid(yyyyMMdd + str);
+            userMapper.save(user);//执行保存
+        }
     }
 
     @Override
-    public void deleteById(Integer id) {
-        userMapper.deleteById(id);
+    public void deleteById(String userid) {
+        userMapper.deleteById(userid);
     }
 
     @Override

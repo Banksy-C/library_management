@@ -6,6 +6,7 @@ import lombok.Data;
 import java.util.Date;
 
 /**
+ * 用户实体
  * @Author banksy
  * @Data 2022/9/23 9:35 PM
  * @Version 1.0
@@ -13,8 +14,8 @@ import java.util.Date;
 @Data
 public class User {
     private Integer id;
-    private String name;
     private String userid;
+    private String name;
     private Integer age;
     private String sex;
     private String phone;

@@ -14,7 +14,6 @@ const routes = [
     name: 'Login',
     component: () => import('@/views/login/Login.vue'),
   },
-
   //  ====== 主页  =====
   {
     path: '/',
@@ -44,10 +43,27 @@ const routes = [
         component: () => import('@/views/user/EditUser.vue'),
       },
       //  ====  Admin  ====
-
+      {
+        path: 'adminList',
+        name: 'AdminList',
+        component: () => import('@/views/admin/Admin.vue')
+      },
+      {
+        path: 'addAdmin',
+        name: 'AddAdmin',
+        component: () => import('@/views/admin/AddAdmin.vue')
+      },
+      {
+        path: 'editAdmin',
+        name: 'EditAdmin',
+        component: () => import('@/views/admin/EditAdmin.vue'),
+      },
     ]
+  },
+  {//当上面的路由都没有，就会到这里的404页面
+    path: "*",
+    component:() => import('@/views/404')
   }
-
 ]
 
 const router = new VueRouter({
@@ -55,5 +71,8 @@ const router = new VueRouter({
   base: process.env.BASE_URL,
   routes
 })
+
+//路由守卫
+
 
 export default router

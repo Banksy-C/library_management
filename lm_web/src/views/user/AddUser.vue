@@ -40,7 +40,7 @@ export default {
   name: 'AddUser',
   data() {
     const checkPhone = (rule, value, callback) => {//自定义手机号校验
-      if (!/^[1] [3,4,5,6,7,8,9] [0-9] {9}$/.test(value)) {
+      if (!/^[1][3,4,5,6,7,8,9][0-9]{9}$/.test(value)) {
         callback(new Error('请输入合法的手机号'));
       }
       callback()
@@ -51,7 +51,7 @@ export default {
       rules: {
         name: [//姓名校验
           {required: true, message: '请输入姓名', trigger: 'blur'},
-          {min: 3, max: 5, message: '长度在 3 到 5 个字符', trigger: 'blur'}
+          {min: 2, max: 5, message: '长度在 2 到 5 个字符', trigger: 'blur'}
         ],
         phone: [//手机号校验
           { validator: checkPhone, trigger: 'blur' }

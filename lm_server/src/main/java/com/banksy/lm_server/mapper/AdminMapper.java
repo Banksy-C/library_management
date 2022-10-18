@@ -8,15 +8,21 @@ import java.util.List;
 
 @Mapper
 public interface AdminMapper {
-    void save(Admin user);
 
-    void deleteById(Integer id);
+    Admin getByUsername(String username);
+
+
+    void save(Admin admin);
+
+    void deleteById(String userid);
 
     void updateById(Admin admin);
 
-    List<Admin> listUsers();
+    List<Admin> listAdmins();
 
-    Admin getById(Integer id);
+    Admin getById(String userid);
 
     List<Admin> listByCondition(AdminPageRequest adminPageRequest);
+
+    Integer getAdminIdDayCount(String date);
 }

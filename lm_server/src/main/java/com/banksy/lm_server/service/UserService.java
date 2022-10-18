@@ -10,7 +10,7 @@ public interface UserService {
 
     void save(User user);
 
-    void deleteById(Integer id);
+    void deleteById(String userid);
 
     void update(User user);
 
