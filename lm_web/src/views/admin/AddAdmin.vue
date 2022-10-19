@@ -1,7 +1,11 @@
 <template>
   <div style="width: 80%">
-    <h2>新增用户</h2>
+    <h2>新增管理员</h2>
     <el-form :inline="true" :model="form" :rules="rules" ref="ruleForm" label-width="100px">
+
+      <el-form-item label="用户名">
+        <el-input v-model="form.adminId" placeholder="请输入用户名"></el-input>
+      </el-form-item>
 
       <el-form-item label="姓名" prop="name">
         <el-input v-model="form.name" placeholder="请输入姓名"></el-input>

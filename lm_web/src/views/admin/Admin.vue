@@ -14,12 +14,12 @@
     <!-- 数据表单 -->
     <el-table :data="tableData" stripe>
 <!--      <el-table-column prop="id" label="编号" width="80"></el-table-column>-->
-      <el-table-column prop="userid" label="用户ID" width="120"></el-table-column>
+      <el-table-column prop="adminId" label="用户ID" width="120"></el-table-column>
       <el-table-column prop="name" label="名称" width="80"></el-table-column>
       <el-table-column prop="age" label="年龄" width="80"></el-table-column>
       <el-table-column prop="sex" label="性别" width="80"></el-table-column>
+      <el-table-column prop="password" label="密码" width="130"></el-table-column>
       <el-table-column prop="phone" label="联系方式" width="100"></el-table-column>
-      <el-table-column prop="address" label="地址" width="200"></el-table-column>
 
       <el-table-column prop="createdate" label="创建时间"></el-table-column>
 <!--      <el-table-column prop="begindate" label="开始时间"></el-table-column>-->

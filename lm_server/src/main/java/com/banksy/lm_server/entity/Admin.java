@@ -13,7 +13,7 @@ import java.util.Date;
 @Data
 public class Admin {
     private Integer id;
-    private String userid;
+    private String adminId;
     private String name;
     private Integer age;
     private String sex;
@@ -22,11 +22,11 @@ public class Admin {
     private String email;
     private String password;
     @JsonFormat(pattern="yyyy-MM-dd HH:mm:ss",timezone="GMT+8")
-    private Date begindate;
+    private Date beginDate;
     @JsonFormat(pattern="yyyy-MM-dd HH:mm:ss",timezone="GMT+8")
-    private Date enddate;
+    private Date endDate;
     @JsonFormat(pattern="yyyy-MM-dd HH:mm:ss",timezone="GMT+8")
-    private Date createdate;
+    private Date createDate;
     @JsonFormat(pattern="yyyy-MM-dd HH:mm:ss",timezone="GMT+8")
-    private Date updatetime;
+    private Date updateTime;
 }

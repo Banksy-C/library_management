@@ -45,10 +45,10 @@
                t.vc_sex sex,
                t.vc_phone phone,
                t.vc_address address,
-               t.d_begin_date begindate,
-               t.d_end_date enddate,
-               t.d_create_date createdate,
-               t.d_update updatetime
+               t.d_begin_date beginDate,
+               t.d_end_date endDate,
+               t.d_create_date createDate,
+               t.d_update updateTime
         FROM lm_user t
         <where>
             <if test="name != null and name != ''">

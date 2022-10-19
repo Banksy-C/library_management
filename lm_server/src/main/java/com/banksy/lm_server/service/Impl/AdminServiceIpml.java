@@ -1,7 +1,6 @@
 package com.banksy.lm_server.service.Impl;
 
-import cn.hutool.core.date.DateUtil;
-import cn.hutool.core.util.IdUtil;
+
 import com.banksy.lm_server.controller.dto.LoginDTO;
 import com.banksy.lm_server.controller.request.AdminPageRequest;
 import com.banksy.lm_server.controller.request.LoginRequest;
@@ -12,6 +11,7 @@ import com.banksy.lm_server.service.AdminService;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -36,41 +36,37 @@ public class AdminServiceIpml implements AdminService {
     public LoginDTO login(LoginRequest request) {
         Admin admin = null;
         try {
-            admin = adminMapper.getByUsername(request.getUsername());
+            admin = adminMapper.getByAdminId(request.getAdminId());
         } catch (Exception e) {
-            log.error("根据用户名{} 查询出错", request.getUsername());
+            log.error("根据用户名{} 查询出错", request.getAdminId());
             throw new ServiceException("用户名错误");
         }
+
         if (admin == null) {
             throw new ServiceException("用户名或密码错误");
         }
+
+        LoginDTO loginDTO = new LoginDTO();
+        BeanUtils.copyProperties(admin, loginDTO);
+        return loginDTO;
         //待写完
 
-        return null;
     }
 
 
     @Override
     public void save(Admin admin) {
-        // 当做卡号：当前日期 + 当前日期注册量+1
-        String yyyyMMdd = DateUtil.format(new Date(), "yyyyMMdd");//当前日期
-        int adminIdDayCount = adminMapper.getAdminIdDayCount(yyyyMMdd) + 1;//获取当前日期数量 + 1
-
-        if (adminIdDayCount < 10000) { //限制日注册数量, 小于10000
-            String str = String.format("%04d", adminIdDayCount);
-            admin.setUserid(yyyyMMdd + str);
             adminMapper.save(admin);//执行保存
-        }
     }
 
     @Override
-    public void deleteById(String userid) {
-        adminMapper.deleteById(userid);
+    public void deleteById(String adminId) {
+        adminMapper.deleteByAdminId(adminId);
     }
 
     @Override
     public void update(Admin admin) {
-        admin.setUpdatetime(new Date());
+        admin.setUpdateTime(new Date());
         adminMapper.updateById(admin);
     }
 

@@ -3,7 +3,7 @@
     <div style="margin-bottom: 30px">编辑用户</div>
     <el-form :inline="true" :model="form" label-width="100px">
       <el-form-item label="用户ID">
-        <el-input v-model="form.userid" disabled></el-input>
+        <el-input v-model="form.adminId" placeholder="请输入用户ID"></el-input>
       </el-form-item>
       <el-form-item label="姓名">
         <el-input v-model="form.name" placeholder="请输入姓名"></el-input>
@@ -20,6 +20,11 @@
       <el-form-item label="地址">
         <el-input v-model="form.address" placeholder="请输入地址"></el-input>
       </el-form-item>
+
+      <el-form-item label="密码">
+        <el-input v-model="form.password" placeholder="请输入密码"></el-input>
+      </el-form-item>
+
     </el-form>
 
     <div style="text-align: center; margin-top: 30px">

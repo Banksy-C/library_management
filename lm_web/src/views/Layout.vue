@@ -4,7 +4,7 @@
     <!-- 头部区域 -->
     <div style="height: 60px; line-height: 60px; background-color: white; margin-bottom: 2px" >
       <img src="@/assets/logo.png" alt="" style="width: 40px; position: relative; top: 10px; left: 20px">
-      <span style="margin-left: 30px; font-size: 24px;">图书管理系统</span>
+      <span style="margin-left: 30px; font-size: 24px;">不知道这是什么的【管理系统】</span>
     </div>
 
     <!-- 侧边栏和主题 -->

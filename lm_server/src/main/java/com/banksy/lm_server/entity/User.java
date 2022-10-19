@@ -21,11 +21,11 @@ public class User {
     private String phone;
     private String address;
     @JsonFormat(pattern="yyyy-MM-dd HH:mm:ss",timezone="GMT+8")
-    private Date begindate;
+    private Date beginDate;
     @JsonFormat(pattern="yyyy-MM-dd HH:mm:ss",timezone="GMT+8")
-    private Date enddate;
+    private Date endDate;
     @JsonFormat(pattern="yyyy-MM-dd HH:mm:ss",timezone="GMT+8")
-    private Date createdate;
+    private Date createDate;
     @JsonFormat(pattern="yyyy-MM-dd HH:mm:ss",timezone="GMT+8")
-    private Date updatetime;
+    private Date updateTime;
 }

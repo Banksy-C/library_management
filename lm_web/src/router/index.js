@@ -19,7 +19,7 @@ const routes = [
     path: '/',
     name: 'Layout',
     component: Layout,
-    redirect: '/home', //重定向至首页
+    redirect: '/home', //通过"/"重定向至首页
     children: [ // 子路由
       {
         path: 'home',

@@ -1,7 +1,6 @@
 package com.banksy.lm_server.service.Impl;
 
 import cn.hutool.core.date.DateUtil;
-import cn.hutool.core.util.IdUtil;
 import com.banksy.lm_server.controller.request.UserPageRequest;
 import com.banksy.lm_server.entity.User;
 import com.banksy.lm_server.mapper.UserMapper;
@@ -45,7 +44,7 @@ public class UserServiceIpml implements UserService {
 
     @Override
     public void update(User user) {
-        user.setUpdatetime(new Date());
+        user.setUpdateTime(new Date());
         userMapper.updateById(user);
     }
 

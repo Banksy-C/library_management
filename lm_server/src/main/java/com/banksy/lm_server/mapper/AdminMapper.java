@@ -9,12 +9,12 @@ import java.util.List;
 @Mapper
 public interface AdminMapper {
 
-    Admin getByUsername(String username);
+    Admin getByAdminId(String adminId);
 
 
     void save(Admin admin);
 
-    void deleteById(String userid);
+    void deleteByAdminId(String adminId);
 
     void updateById(Admin admin);
 
