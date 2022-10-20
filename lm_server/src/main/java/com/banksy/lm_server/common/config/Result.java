@@ -1,4 +1,4 @@
-package com.banksy.lm_server.common;
+package com.banksy.lm_server.common.config;
 
 import lombok.Data;
 

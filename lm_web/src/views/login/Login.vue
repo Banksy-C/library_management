@@ -24,6 +24,7 @@
 
 <script>
 import request from "@/utils/request";
+import Cookies from 'js-cookie'
 
 export default {
   name: 'LOGIN',
@@ -51,6 +52,9 @@ export default {
           request.post('/admin/login', this.admin).then(res => {
             if (res.code === '200') {
               this.$notify.success("登录成功")
+              if (res.data !== null) {//若data不为null才会存储cookies
+                Cookies.set('admin', JSON.stringify(res.data))//JSON.stringify将JSON转为字符串
+              }
               this.$router.push('/')
             } else {
               this.$notify.error(res.msg)
