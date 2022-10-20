@@ -1,4 +1,4 @@
-package com.banksy.lm_server.controller.request;
+package com.banksy.lm_server.modules.base.controller.request;
 
 import lombok.Data;
 

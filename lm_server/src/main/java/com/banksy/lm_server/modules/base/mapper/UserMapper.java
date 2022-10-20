@@ -1,10 +1,9 @@
-package com.banksy.lm_server.mapper;
+package com.banksy.lm_server.modules.base.mapper;
 
-import com.banksy.lm_server.controller.request.UserPageRequest;
-import com.banksy.lm_server.entity.User;
+import com.banksy.lm_server.modules.base.controller.request.UserPageRequest;
+import com.banksy.lm_server.modules.base.entity.User;
 import org.apache.ibatis.annotations.Mapper;
 
-import java.util.Date;
 import java.util.List;
 
 @Mapper

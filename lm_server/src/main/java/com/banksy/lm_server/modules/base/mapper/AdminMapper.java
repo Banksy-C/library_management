@@ -1,7 +1,7 @@
-package com.banksy.lm_server.mapper;
+package com.banksy.lm_server.modules.base.mapper;
 
-import com.banksy.lm_server.controller.request.AdminPageRequest;
-import com.banksy.lm_server.entity.Admin;
+import com.banksy.lm_server.modules.base.controller.request.AdminPageRequest;
+import com.banksy.lm_server.modules.base.entity.Admin;
 import org.apache.ibatis.annotations.Mapper;
 
 import java.util.List;
@@ -20,7 +20,7 @@ public interface AdminMapper {
 
     List<Admin> listAdmins();
 
-    Admin getById(String userid);
+    Admin getById(Integer userid);
 
     List<Admin> listByCondition(AdminPageRequest adminPageRequest);
 

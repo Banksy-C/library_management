@@ -1,15 +1,16 @@
-package com.banksy.lm_server.controller;
+package com.banksy.lm_server.modules.base.controller;
 
-import com.banksy.lm_server.common.Result;
-import com.banksy.lm_server.controller.request.UserPageRequest;
-import com.banksy.lm_server.entity.User;
-import com.banksy.lm_server.service.UserService;
+import com.banksy.lm_server.common.config.Result;
+import com.banksy.lm_server.modules.base.controller.request.UserPageRequest;
+import com.banksy.lm_server.modules.base.entity.User;
+import com.banksy.lm_server.modules.base.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
 /**
+ * 用户管理
  * @Author banksy
  * @Data 2022/9/23 9:35 PM
  * @Version 1.0
@@ -27,7 +28,7 @@ public class UserController {
      * @Author banksy
      * @Date 2022/9/27 12:45 PM
      * @Param [user]
-     * @return com.banksy.lm_server.common.Result
+     * @return com.banksy.lm_server.common.config.Result
      **/
     @PostMapping("/save")
     public Result save(@RequestBody User user) {
@@ -40,7 +41,7 @@ public class UserController {
      * @Author banksy
      * @Date 2022/9/27 12:48 PM
      * @Param [id]
-     * @return com.banksy.lm_server.common.Result
+     * @return com.banksy.lm_server.common.config.Result
      **/
     @DeleteMapping("/delete/{userid}")
     public Result deleteById(@PathVariable String userid) {
@@ -53,7 +54,7 @@ public class UserController {
      * @Author banksy
      * @Date 2022/9/27 12:48 PM
      * @Param [user]
-     * @return com.banksy.lm_server.common.Result
+     * @return com.banksy.lm_server.common.config.Result
      **/
     @PutMapping("/update")
     public Result update(@RequestBody User user) {
@@ -66,7 +67,7 @@ public class UserController {
      * @Author banksy
      * @Date 2022/9/24 12:48 PM
      * @Param []
-     * @return com.banksy.lm_server.common.Result
+     * @return com.banksy.lm_server.common.config.Result
      **/
     @GetMapping("/list")
     public Result getListUsers() {
@@ -79,7 +80,7 @@ public class UserController {
      * @Author banksy
      * @Date 2022/9/27 12:49 PM
      * @Param [id]
-     * @return com.banksy.lm_server.common.Result
+     * @return com.banksy.lm_server.common.config.Result
      **/
     @GetMapping("/{userid}")
     public Result getById(@PathVariable String userid) {
@@ -92,7 +93,7 @@ public class UserController {
      * @Author banksy
      * @Date 2022/9/24 12:48 PM
      * @Param [userPageRequest]
-     * @return com.banksy.lm_server.common.Result
+     * @return com.banksy.lm_server.common.config.Result
      **/
     @GetMapping("/page")
     public Result getPage(UserPageRequest userPageRequest){

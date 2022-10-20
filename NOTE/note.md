@@ -23,6 +23,26 @@ import 'element-ui/lib/theme-chalk/index.css';
 Vue.use(ElementUI);
 ```
 
+### 登录和数据安全
+
+js-cookie的使用
+
+```
+npm i js-cookie -S
+
+// 导入使用
+
+import Cookies from 'js-cookie'
+
+Cookies.set('user', obj)  // 默认失效时间为该网站关闭时
+Cookies.set('user', obj, { expires: 1 })  // 1天过期
+
+Cookies.get('user')  // 获取cookie数据
+
+Cookies.remove('user')  // 删除cookie数据
+```
+
+
 前端运行命令：
 npm run serve
 
@@ -42,3 +62,8 @@ axios插件，去请求后台的数据，去处理前后端交互的数据
 
 管理员管理模块：
 
+
+数据安全性：
+前端使用cookie，但若篡改cookie，还是会进去，所以就需要后端安全
+后端不能用接口直接访问数据，解决办法：
+集成JWT(JSON Web Token)，

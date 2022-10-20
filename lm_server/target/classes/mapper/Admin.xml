@@ -2,7 +2,7 @@
 <!DOCTYPE mapper
         PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.banksy.lm_server.mapper.AdminMapper">
+<mapper namespace="com.banksy.lm_server.modules.base.mapper.AdminMapper">
 
     <insert id="save">
         insert into sys_user(vc_adminid, vc_name, f_age, vc_sex, vc_phone, vc_address)
@@ -25,15 +25,15 @@
         where vc_adminid = #{adminId}
     </update>
 
-    <select id="getById" resultType="com.banksy.lm_server.entity.Admin">
+    <select id="getById" resultType="com.banksy.lm_server.modules.base.entity.Admin">
         select f_id id, vc_name name, vc_adminid adminId, f_age age, vc_sex sex, vc_phone phone, vc_address address
         from sys_user
         where vc_adminid = #{adminId}
     </select>
 
-    <select id="listByCondition" resultType="com.banksy.lm_server.entity.Admin">
+    <select id="listByCondition" resultType="com.banksy.lm_server.modules.base.entity.Admin">
         SELECT t.f_id id,
-               t.vc_userid userid,
+               t.vc_adminid adminId,
                t.vc_name name,
                t.f_age age,
                t.vc_sex sex,
@@ -56,11 +56,11 @@
         order by t.f_id desc
     </select>
 
-    <select id="getByAdminIdAndPassword" resultType="com.banksy.lm_server.entity.Admin">
+    <select id="getByAdminIdAndPassword" resultType="com.banksy.lm_server.modules.base.entity.Admin">
         select * from sys_user where vc_userid = #{userid} and vc_password = #{password}
     </select>
 
-    <select id="getByAdminId" resultType="com.banksy.lm_server.entity.Admin">
+    <select id="getByAdminId" resultType="com.banksy.lm_server.modules.base.entity.Admin">
         select t.f_id id,
                t.vc_adminid adminId,
                t.vc_password password,

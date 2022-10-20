@@ -1,10 +1,10 @@
-package com.banksy.lm_server.service.Impl;
+package com.banksy.lm_server.modules.base.service.Impl;
 
 import cn.hutool.core.date.DateUtil;
-import com.banksy.lm_server.controller.request.UserPageRequest;
-import com.banksy.lm_server.entity.User;
-import com.banksy.lm_server.mapper.UserMapper;
-import com.banksy.lm_server.service.UserService;
+import com.banksy.lm_server.modules.base.controller.request.UserPageRequest;
+import com.banksy.lm_server.modules.base.entity.User;
+import com.banksy.lm_server.modules.base.mapper.UserMapper;
+import com.banksy.lm_server.modules.base.service.UserService;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import org.springframework.beans.factory.annotation.Autowired;

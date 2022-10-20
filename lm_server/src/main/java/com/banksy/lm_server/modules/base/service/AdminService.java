@@ -1,11 +1,9 @@
-package com.banksy.lm_server.service;
+package com.banksy.lm_server.modules.base.service;
 
-import com.banksy.lm_server.controller.dto.LoginDTO;
-import com.banksy.lm_server.controller.request.AdminPageRequest;
-import com.banksy.lm_server.controller.request.LoginRequest;
-import com.banksy.lm_server.controller.request.UserPageRequest;
-import com.banksy.lm_server.entity.Admin;
-import com.banksy.lm_server.entity.User;
+import com.banksy.lm_server.modules.base.controller.dto.LoginDTO;
+import com.banksy.lm_server.modules.base.controller.request.AdminPageRequest;
+import com.banksy.lm_server.modules.base.controller.request.LoginRequest;
+import com.banksy.lm_server.modules.base.entity.Admin;
 import com.github.pagehelper.PageInfo;
 
 
@@ -25,7 +23,7 @@ public interface AdminService {
 
     List<Admin> listAdmins();
 
-    Admin getById(String adminId);
+    Admin getById(Integer adminId);
 
     PageInfo<Admin> page(AdminPageRequest adminPageRequest);
 

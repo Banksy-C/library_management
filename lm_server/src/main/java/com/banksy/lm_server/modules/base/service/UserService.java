@@ -1,7 +1,7 @@
-package com.banksy.lm_server.service;
+package com.banksy.lm_server.modules.base.service;
 
-import com.banksy.lm_server.controller.request.UserPageRequest;
-import com.banksy.lm_server.entity.User;
+import com.banksy.lm_server.modules.base.controller.request.UserPageRequest;
+import com.banksy.lm_server.modules.base.entity.User;
 import com.github.pagehelper.PageInfo;
 
 import java.util.List;

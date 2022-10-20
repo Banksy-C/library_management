@@ -1,18 +1,21 @@
-package com.banksy.lm_server.service.Impl;
+package com.banksy.lm_server.modules.base.service.Impl;
 
 
-import com.banksy.lm_server.controller.dto.LoginDTO;
-import com.banksy.lm_server.controller.request.AdminPageRequest;
-import com.banksy.lm_server.controller.request.LoginRequest;
-import com.banksy.lm_server.entity.Admin;
-import com.banksy.lm_server.exception.ServiceException;
-import com.banksy.lm_server.mapper.AdminMapper;
-import com.banksy.lm_server.service.AdminService;
+import cn.hutool.core.util.StrUtil;
+import cn.hutool.crypto.SecureUtil;
+import com.banksy.lm_server.modules.base.controller.dto.LoginDTO;
+import com.banksy.lm_server.modules.base.controller.request.AdminPageRequest;
+import com.banksy.lm_server.modules.base.controller.request.LoginRequest;
+import com.banksy.lm_server.modules.base.mapper.AdminMapper;
+import com.banksy.lm_server.modules.base.entity.Admin;
+import com.banksy.lm_server.common.exception.ServiceException;
+import com.banksy.lm_server.modules.base.service.AdminService;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.DuplicateKeyException;
 import org.springframework.stereotype.Service;
 
 import java.util.Date;
@@ -28,6 +31,9 @@ import java.util.List;
 @Slf4j
 @Service
 public class AdminServiceIpml implements AdminService {
+
+    private static final String DEFAULT_PASS = "123";
+    private static final String PASS_SALT = "qingge";
 
     @Autowired
     AdminMapper adminMapper;
@@ -45,6 +51,14 @@ public class AdminServiceIpml implements AdminService {
         if (admin == null) {
             throw new ServiceException("用户名或密码错误");
         }
+        // 判断密码是否合法
+        String securePass = securePass(request.getPassword());
+        if (!securePass.equals(admin.getPassword())) {
+            throw new ServiceException("用户名或密码错误");
+        }
+//        if (!admin.isStatus()) {
+//            throw new ServiceException("当前用户处于禁用状态，请联系管理员");
+//        }
 
         LoginDTO loginDTO = new LoginDTO();
         BeanUtils.copyProperties(admin, loginDTO);
@@ -56,7 +70,17 @@ public class AdminServiceIpml implements AdminService {
 
     @Override
     public void save(Admin admin) {
+        // 默认密码 123
+        if (StrUtil.isBlank(admin.getPassword())) {
+            admin.setPassword(DEFAULT_PASS);
+        }
+        admin.setPassword(securePass(admin.getPassword()));  // 设置md5加密，加盐
+        try {
             adminMapper.save(admin);//执行保存
+        } catch (DuplicateKeyException e) {
+            log.error("数据插入失败， getAdminId:{}", admin.getAdminId(), e);
+            throw new ServiceException("用户名重复");
+        }
     }
 
     @Override
@@ -76,7 +100,7 @@ public class AdminServiceIpml implements AdminService {
     }
 
     @Override
-    public Admin getById(String adminId) {
+    public Admin getById(Integer adminId) {
         return adminMapper.getById(adminId);
     }
 
@@ -86,4 +110,10 @@ public class AdminServiceIpml implements AdminService {
         List<Admin> admins = adminMapper.listByCondition(adminPageRequest);
         return new PageInfo<>(admins);
     }
+
+
+    private String securePass(String password) {
+        return SecureUtil.md5(password + PASS_SALT);// 设置md5加密，加盐
+    }
+
 }

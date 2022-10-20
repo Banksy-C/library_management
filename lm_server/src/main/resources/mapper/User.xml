@@ -3,7 +3,7 @@
         PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
-<mapper namespace="com.banksy.lm_server.mapper.UserMapper">
+<mapper namespace="com.banksy.lm_server.modules.base.mapper.UserMapper">
 
     <insert id="save">
         insert into lm_user(vc_userid, vc_name, f_age, vc_sex, vc_phone, vc_address)
@@ -25,19 +25,19 @@
          where vc_userid = #{userid}
     </update>
 
-    <select id="listUsers" resultType="com.banksy.lm_server.entity.User">
+    <select id="listUsers" resultType="com.banksy.lm_server.modules.base.entity.User">
         select f_id id, vc_name name, vc_userid userid, f_age age, vc_sex sex, vc_phone phone, vc_address address
           from lm_user
         order by f_id desc
     </select>
     
-    <select id="getById" resultType="com.banksy.lm_server.entity.User">
+    <select id="getById" resultType="com.banksy.lm_server.modules.base.entity.User">
         select f_id id, vc_name name, vc_userid userid, f_age age, vc_sex sex, vc_phone phone, vc_address address
           from lm_user
          where vc_userid = #{userid}
     </select>
 
-    <select id="listByCondition" resultType="com.banksy.lm_server.entity.User">
+    <select id="listByCondition" resultType="com.banksy.lm_server.modules.base.entity.User">
         SELECT t.f_id id,
                t.vc_userid userid,
                t.vc_name name,

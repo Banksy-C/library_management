@@ -1,17 +1,18 @@
-package com.banksy.lm_server.controller;
+package com.banksy.lm_server.modules.base.controller;
 
-import com.banksy.lm_server.common.Result;
-import com.banksy.lm_server.controller.dto.LoginDTO;
-import com.banksy.lm_server.controller.request.AdminPageRequest;
-import com.banksy.lm_server.controller.request.LoginRequest;
-import com.banksy.lm_server.entity.Admin;
-import com.banksy.lm_server.service.AdminService;
+import com.banksy.lm_server.common.config.Result;
+import com.banksy.lm_server.modules.base.controller.dto.LoginDTO;
+import com.banksy.lm_server.modules.base.controller.request.AdminPageRequest;
+import com.banksy.lm_server.modules.base.controller.request.LoginRequest;
+import com.banksy.lm_server.modules.base.entity.Admin;
+import com.banksy.lm_server.modules.base.service.AdminService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
 /**
+ * 管理员管理
  * @Author banksy
  * @Data 2022/10/1 6:45 PM
  * @Version 1.0
@@ -40,7 +41,7 @@ public class AdminController {
      * @Author banksy
      * @Date 2022/9/27 12:45 PM
      * @Param [user]
-     * @return com.banksy.lm_server.common.Result
+     * @return com.banksy.lm_server.common.config.Result
      **/
     @PostMapping("/save")
     public Result save(@RequestBody Admin admin) {
@@ -53,7 +54,7 @@ public class AdminController {
      * @Author banksy
      * @Date 2022/9/27 12:48 PM
      * @Param [id]
-     * @return com.banksy.lm_server.common.Result
+     * @return com.banksy.lm_server.common.config.Result
      **/
     @DeleteMapping("/delete/{userid}")
     public Result deleteById(@PathVariable String adminId) {
@@ -66,7 +67,7 @@ public class AdminController {
      * @Author banksy
      * @Date 2022/9/27 12:48 PM
      * @Param [admin]
-     * @return com.banksy.lm_server.common.Result
+     * @return com.banksy.lm_server.common.config.Result
      **/
     @PutMapping("/update")
     public Result update(@RequestBody Admin admin) {
@@ -79,7 +80,7 @@ public class AdminController {
      * @Author banksy
      * @Date 2022/9/24 12:48 PM
      * @Param []
-     * @return com.banksy.lm_server.common.Result
+     * @return com.banksy.lm_server.common.config.Result
      **/
     @GetMapping("/list")
     public Result getListUsers() {
@@ -92,10 +93,10 @@ public class AdminController {
      * @Author banksy
      * @Date 2022/9/27 12:49 PM
      * @Param [id]
-     * @return com.banksy.lm_server.common.Result
+     * @return com.banksy.lm_server.common.config.Result
      **/
     @GetMapping("/{adminid}")
-    public Result getById(@PathVariable String adminid) {
+    public Result getById(@PathVariable Integer adminid) {
         Admin admin = adminService.getById(adminid);
         return Result.success(admin);
     }
@@ -105,7 +106,7 @@ public class AdminController {
      * @Author banksy
      * @Date 2022/9/24 12:48 PM
      * @Param [userPageRequest]
-     * @return com.banksy.lm_server.common.Result
+     * @return com.banksy.lm_server.common.config.Result
      **/
     @GetMapping("/page")
     public Result getPage(AdminPageRequest adminPageRequest){

@@ -1,4 +1,4 @@
-package com.banksy.lm_server.entity;
+package com.banksy.lm_server.modules.base.entity;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.Data;

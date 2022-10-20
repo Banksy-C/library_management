@@ -1,4 +1,4 @@
-package com.banksy.lm_server.controller.dto;
+package com.banksy.lm_server.modules.base.controller.dto;
 
 import lombok.Data;
 
