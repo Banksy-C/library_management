@@ -26,9 +26,21 @@
     </update>
 
     <select id="getById" resultType="com.banksy.lm_server.modules.base.entity.Admin">
-        select f_id id, vc_name name, vc_adminid adminId, f_age age, vc_sex sex, vc_phone phone, vc_address address
-        from sys_user
-        where vc_adminid = #{adminId}
+        select t.f_id id,
+               t.vc_adminid adminId,
+               t.vc_password password,
+               t.vc_name name,
+               t.f_age age,
+               t.vc_sex sex,
+               t.vc_phone phone,
+               t.vc_address address,
+               t.vc_email email,
+               t.d_begin_date beginDate,
+               t.d_end_date endDate,
+               t.d_create_date createDate,
+               t.d_update updateTime
+        from sys_user t
+        where t.vc_adminid = #{adminId}
     </select>
 
     <select id="listByCondition" resultType="com.banksy.lm_server.modules.base.entity.Admin">

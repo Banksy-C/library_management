@@ -23,7 +23,7 @@ public interface AdminService {
 
     List<Admin> listAdmins();
 
-    Admin getById(Integer adminId);
+    Admin getById(String adminId);
 
     PageInfo<Admin> page(AdminPageRequest adminPageRequest);
 

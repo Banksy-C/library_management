@@ -11,10 +11,12 @@
         <el-dropdown size="medium">
           <span class="el-dropdown-link" style="cursor: pointer">
 <!--            {{ admin.adminId }}-->
-            管理员<i class="el-icon-arrow-down el-icon&#45;&#45;right"></i>
+            管理员<i class="el-icon-arrow-down el-icon--right"></i>
           </span>
           <el-dropdown-menu slot="dropdown" style="margin-top: -5px">
-            <el-dropdown-item><div style="width: 50px; text-align: center;" @click="logout">退出</div></el-dropdown-item>
+            <el-dropdown-item>
+              <div style="width: 50px; text-align: center;" @click="logout">退出</div>
+            </el-dropdown-item>
           </el-dropdown-menu>
         </el-dropdown>
       </div>
@@ -30,13 +32,18 @@
           <el-menu-item index="/"> <i class="el-icon-eleme"></i> <span>首页</span> </el-menu-item>
 
           <el-submenu index="algorithm">
+            <template slot="title"> <i class="el-icon-edit-outline"></i> <span>demo</span> </template>
+            <el-menu-item index="">图书管理</el-menu-item>
+          </el-submenu>
+
+          <el-submenu index="algorithm">
             <template slot="title"> <i class="el-icon-edit-outline"></i> <span>算法示例练习</span> </template>
             <el-menu-item index="">数据结构</el-menu-item>
           </el-submenu>
 
           <el-submenu index="hadoop">
             <template slot="title"> <i class="el-icon-s-marketing"></i> <span>大数据管理</span> </template>
-            <el-menu-item index="">HDFS文件管理</el-menu-item>
+            <el-menu-item index="/hdfsList">HDFS文件管理</el-menu-item>
           </el-submenu>
 
           <el-submenu index="user">

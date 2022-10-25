@@ -42,10 +42,10 @@ public class TokenUtils {
      *
      * @return
      */
-    public static String genToken(String adminId, String sign) {
-        return JWT.create().withAudience(adminId) // 将 adminId 保存到 token 里面,作为载荷
+    public static String genToken(String payload, String signature) {
+        return JWT.create().withAudience(payload) // 将 payload 保存到 token 里面,作为载荷
                 .withExpiresAt(DateUtil.offsetHour(new Date(), 2)) // 2小时后token过期
-                .sign(Algorithm.HMAC256(sign)); // 以 password 作为 token 的密钥
+                .sign(Algorithm.HMAC256(signature)); // 以 password 作为 token 的密钥
     }
 
     /**
@@ -57,17 +57,20 @@ public class TokenUtils {
         String token = null;
         try {
             HttpServletRequest request = ((ServletRequestAttributes) RequestContextHolder.getRequestAttributes()).getRequest();
-            token = request.getHeader("token");// 先从Header取token
+            //获取token
+            token = request.getHeader("token");
             if (StrUtil.isNotBlank(token)) {
-                token = request.getParameter("token");// 若没有，就从Parameter取token
+                token = request.getParameter("token");
             }
+            // 执行认证
             if (StrUtil.isBlank(token)) {
                 log.error("获取当前登录的token失败， token: {}", token);// 若都没有的话，都获取不到，返回获取不到
                 return null;
             }
             //若获取到token之后，获取到adminId；通过adminservice获取到admin信息；
             String adminId = JWT.decode(token).getAudience().get(0);//decode解开token
-            return staticAdminService.getById(Integer.valueOf(adminId));
+//            return staticAdminService.getById(Integer.valueOf(adminId));
+            return staticAdminService.getById(adminId);
         } catch (Exception e) {
             log.error("获取当前登录的管理员信息失败, token={}", token,  e);
             return null;

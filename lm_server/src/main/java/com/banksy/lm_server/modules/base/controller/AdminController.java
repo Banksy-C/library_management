@@ -17,7 +17,7 @@ import java.util.List;
  * @Data 2022/10/1 6:45 PM
  * @Version 1.0
  **/
-@CrossOrigin
+//@CrossOrigin
 @RestController
 @RequestMapping("/admin")
 public class AdminController {
@@ -96,7 +96,7 @@ public class AdminController {
      * @return com.banksy.lm_server.common.config.Result
      **/
     @GetMapping("/{adminid}")
-    public Result getById(@PathVariable Integer adminid) {
+    public Result getById(@PathVariable String adminid) {
         Admin admin = adminService.getById(adminid);
         return Result.success(admin);
     }

@@ -34,33 +34,34 @@ public class JwtInterceptor implements HandlerInterceptor {
 
     @Override
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) {
+        //获取token
         String token = request.getHeader("token");
         if (StrUtil.isBlank(token)) {
             token = request.getParameter("token");
         }
-
         // 执行认证
         if (StrUtil.isBlank(token)) {
             throw new ServiceException(ERROR_CODE_401, "无token，请重新登录");
         }
-        // 获取 token 中的adminId
-        String adminId;
-        Admin admin;
+
+        String adminId;// 获取 token 中的adminId
+        Admin admin;// 获取admin信息
         try {
-            adminId = JWT.decode(token).getAudience().get(0);
+            adminId = JWT.decode(token).getAudience().get(0);//decode解开token，并取到载荷
             // 根据token中的userid查询数据库
-            admin = adminService.getById(Integer.parseInt(adminId));
+//            admin = adminService.getById(Integer.parseInt(adminId));
+            admin = adminService.getById(adminId);
         } catch (Exception e) {
             String errMsg = "token验证失败，请重新登录";
             log.error(errMsg + ", token=" + token, e);
             throw new ServiceException(ERROR_CODE_401, errMsg);
         }
-        if (admin == null) {
+
+        if (admin == null) {//这里查不到，说明token是假的
             throw new ServiceException(ERROR_CODE_401, "用户不存在，请重新登录");
         }
 
-        try {
-            // 用户密码加签验证 token
+        try {// 用户密码加签验证 token
             JWTVerifier jwtVerifier = JWT.require(Algorithm.HMAC256(admin.getPassword())).build();
             jwtVerifier.verify(token); // 验证token
         } catch (JWTVerificationException e) {

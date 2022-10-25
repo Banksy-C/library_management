@@ -20,7 +20,7 @@ public interface AdminMapper {
 
     List<Admin> listAdmins();
 
-    Admin getById(Integer userid);
+    Admin getById(String userid);
 
     List<Admin> listByCondition(AdminPageRequest adminPageRequest);
 

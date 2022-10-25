@@ -30,34 +30,41 @@ const routes = [
       {
         path: 'userList',
         name: 'UserList',
-        component: () => import('@/views/user/User.vue')
+        component: () => import('@/views/management/user/User.vue')
       },
       {
         path: 'addUser',
         name: 'AddUser',
-        component: () => import('@/views/user/AddUser.vue')
+        component: () => import('@/views/management/user/AddUser.vue')
       },
       {
         path: 'editUser',
         name: 'EditUser',
-        component: () => import('@/views/user/EditUser.vue'),
+        component: () => import('@/views/management/user/EditUser.vue'),
       },
       //  ====  Admin  ====
       {
         path: 'adminList',
         name: 'AdminList',
-        component: () => import('@/views/admin/Admin.vue')
+        component: () => import('@/views/management/admin/Admin.vue')
       },
       {
         path: 'addAdmin',
         name: 'AddAdmin',
-        component: () => import('@/views/admin/AddAdmin.vue')
+        component: () => import('@/views/management/admin/AddAdmin.vue')
       },
       {
         path: 'editAdmin',
         name: 'EditAdmin',
-        component: () => import('@/views/admin/EditAdmin.vue'),
+        component: () => import('@/views/management/admin/EditAdmin.vue'),
       },
+      //  ====  Admin  ====
+      {
+        path: 'hdfsList',
+        name: 'HdfsList',
+        component: () => import('@/views/bigdata/hdfs/Hdfs.vue'),
+      },
+
     ]
   },
   {//当访问路径都不是上面的路由，就会转到404页面
