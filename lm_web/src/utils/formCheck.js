@@ -13,6 +13,7 @@ let numberReg = /^\d+$|^\d+[.]?\d+$/
 //
 // let emailReg = /^[A-Za-z\d]+([-_.][A-Za-z\d]+)*@([A-Za-z\d]+[-.])+[A-Za-z\d]{2,4}$/
 
+
 let FormValidate = (function () {
     function FormValidate () {}
     // From表单验证规则  可用于公用的校验部分

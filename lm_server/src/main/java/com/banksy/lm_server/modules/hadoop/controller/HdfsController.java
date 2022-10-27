@@ -1,13 +1,12 @@
 package com.banksy.lm_server.modules.hadoop.controller;
 
 import com.banksy.lm_server.common.config.Result;
+import com.banksy.lm_server.modules.hadoop.controller.request.HdfsPageRequest;
 import com.banksy.lm_server.modules.hadoop.entity.Hdfs;
 import com.banksy.lm_server.modules.hadoop.mutidatasource.HdfsSource;
+import com.banksy.lm_server.modules.hadoop.service.HdfsService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -32,18 +31,23 @@ public class HdfsController {
     @Autowired
     private HdfsSource hadoopTemplate;
 
+    @Autowired
+    HdfsService hdfsService;
+
 
     /**
      * [查询路径下目录信息]
      * @author banksy
      * 2022/10/24 10:04 PM
-     * @param path 默认传入'/'【若传入第一个不是/需要报错，后期增加】     接口有问题，需要排查
+     * @param  hdfsPageRequest 默认传入'/'【若传入第一个不是/需要报错，后期增加】     接口有问题，需要排查
      * @return Result
      **/
     @GetMapping("/detailFile")
-    public Result detail(@RequestParam String path){
-        List<Hdfs> hdfsList = hadoopTemplate.detailFile(path);
-        return Result.success(hdfsList);
+    public Result detail(HdfsPageRequest hdfsPageRequest){
+//        List<Hdfs> hdfsList = hadoopTemplate.detailFile(path);
+//        return Result.success(hdfsList);
+//        System.out.println(hdfsService.page(hdfsPageRequest));
+        return Result.success(hdfsService.page(hdfsPageRequest));
     }
 
     /***
@@ -53,8 +57,8 @@ public class HdfsController {
      * @param path
      * @return boolean
      **/
-    @GetMapping("/createFile")
-    public Result create(@RequestParam String path){
+    @PostMapping("/createFile")
+    public Result create(@RequestBody String path){
         boolean file = hadoopTemplate.createFile(path);
         return Result.success(file);
     }
@@ -86,15 +90,16 @@ public class HdfsController {
         return "download";
     }
 
+
     /**
-     * []
+     * [删除文件及文件目录]
      * @author banksy
      * 2022/10/25 9:43 PM
      * @param path
      * @return boolean
      **/
-    @RequestMapping("/delFile")
-    public Result del(@RequestParam String path){
+    @GetMapping("/delFile")
+    public Result del(String path){
         return Result.success(hadoopTemplate.delFileDir(path));
     }
 

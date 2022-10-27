@@ -101,29 +101,29 @@ public class HdfsSource {
     /** 创建文件夹 **/
     public boolean createFile(String srcFile){
 //        String destPath = nameNode + srcFile;
-        return existDir(srcFile,true);
+        String destPath = nameSpace + '/' + srcFile;
+        return existDir(destPath,true);
     }
 
     /**
      * 创建文件夹
-     * @param filePath
-     * @param create
+     * @param Path 文件路径，传入 /mydata/ 后的地址
+     * @param create 确认创建
      * @return
      */
-    public boolean existDir(String filePath, boolean create){
+    public boolean existDir(String Path, boolean create){
         boolean flag = false;
-        if(StringUtils.isBlank(filePath)){//返回字符串，判断路径是否为空
+        if(StringUtils.isBlank(Path)){//返回字符串，判断路径是否为空
             throw new IllegalArgumentException("filePath不能为空");
         }
         try{
-            Path path = new Path(filePath);
+            Path path = new Path(Path);
             if (create){
                 if (!fileSystem.exists(path)){
                     fileSystem.mkdirs(path);
-                }
+                }//若存在路径打印已存在
             }
-            FileStatus fileStatus = fileSystem.getFileStatus(path);
-            if (fileStatus.isDirectory()){//创建后判断一下是否是文件夹
+            if (fileSystem.exists(path)){//创建后判断一下是否是文件夹
                 flag = true;
             }
         }catch (Exception e){

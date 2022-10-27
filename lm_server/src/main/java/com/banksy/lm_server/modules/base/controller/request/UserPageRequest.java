@@ -1,5 +1,6 @@
 package com.banksy.lm_server.modules.base.controller.request;
 
+import com.banksy.lm_server.common.Request.BaseRequest;
 import lombok.Data;
 
 /**
@@ -10,7 +11,7 @@ import lombok.Data;
  * @Version 1.0
  **/
 @Data
-public class UserPageRequest extends BaseRequest{
+public class UserPageRequest extends BaseRequest {
     private String name;
     private String phone;
 }

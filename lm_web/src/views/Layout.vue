@@ -33,12 +33,12 @@
 
           <el-submenu index="algorithm">
             <template slot="title"> <i class="el-icon-edit-outline"></i> <span>demo</span> </template>
-            <el-menu-item index="">图书管理</el-menu-item>
+            <el-menu-item >图书管理</el-menu-item>
           </el-submenu>
 
           <el-submenu index="algorithm">
             <template slot="title"> <i class="el-icon-edit-outline"></i> <span>算法示例练习</span> </template>
-            <el-menu-item index="">数据结构</el-menu-item>
+            <el-menu-item >数据结构</el-menu-item>
           </el-submenu>
 
           <el-submenu index="hadoop">
@@ -54,7 +54,7 @@
 
           <el-submenu index="manual">
             <template slot="title"> <i class="el-icon-document"></i> <span>项目手册</span> </template>
-            <el-menu-item index="">模块说明</el-menu-item>
+            <el-menu-item >模块说明</el-menu-item>
           </el-submenu>
 
         </el-menu>
@@ -66,6 +66,9 @@
       </div>
 
     </div>
+
+    <!-- 底部区域 -->
+
 
   </div>
 </template>
