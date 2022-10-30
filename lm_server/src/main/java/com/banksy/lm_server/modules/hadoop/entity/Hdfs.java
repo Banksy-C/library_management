@@ -9,6 +9,7 @@ import lombok.Data;
  **/
 @Data
 public class Hdfs {
+    private  String path;
     private  String name;
     private  String permission;
     private  String owner;

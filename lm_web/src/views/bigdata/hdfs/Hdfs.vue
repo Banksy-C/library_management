@@ -27,8 +27,24 @@
 <!--        <el-form :model="form" style="margin-left: 10px">-->
 <!--          <el-form-item label="路径" >-->
             <el-input v-model="createPath" placeholder="请输入内容" style="width: 450px">
-              <template slot="prepend">/</template> <!-- 这里更新当前路径 -->
+              <template slot="prepend">{{params.path}}</template> <!-- 这里更新当前路径 -->
             </el-input>
+
+      <div style="margin-top: 10px">
+        <el-input  placeholder="请输入路径" v-model="this.statusLists[0].status_name" class="input-with-select">
+          <el-select v-model="select" slot="prepend" placeholder="请选择">
+<!--            <el-option label="当前目录" v-model="nowPath">当前目录</el-option>-->
+<!--            <el-option label="根目录" v-model="rootPath">根目录</el-option>-->
+            <el-option v-for="item in statusLists"
+                       :key="item.key"
+                       :label="item.status_name"
+                       :value="item.id" />
+          </el-select>
+        </el-input>
+      </div>
+
+
+
 <!--          </el-form-item>-->
 <!--        </el-form>-->
         <div slot="footer" class="dialog-footer">
@@ -76,17 +92,17 @@
         <el-table-column prop="permission" label="Permission" width="100" align="center"></el-table-column>
         <el-table-column prop="owner" label="Owner" width="100" align="center"></el-table-column>
         <el-table-column prop="group" label="Group" width="100" align="center"></el-table-column>
-
         <el-table-column prop="len" label="Size" width="100" align="center"></el-table-column>
         <el-table-column prop="modificationTime" label="modificationTime" width="150" align="center"></el-table-column>
         <el-table-column prop="replication" label="replication" width="100" align="center"></el-table-column>
         <el-table-column prop="blockSize" label="blockSize" width="100" align="center"></el-table-column>
         <el-table-column prop="name" label="Name" width="150" align="center"></el-table-column>
+<!--        <el-table-column prop="path" label="Path" width="150" align="center"></el-table-column>-->
 
         <el-table-column label="操作" align="center">
           <!-- scope.row 当前行数据 -->
           <template v-slot="scope">
-            <el-popconfirm style="margin-left: 5px" icon="el-icon-info" icon-color="red" title="确定删除这条数据吗？" @confirm="del(scope.row.userid)">
+            <el-popconfirm style="margin-left: 5px" icon="el-icon-info" icon-color="red" title="确定删除这条数据吗？" @confirm="del(scope.row.path)">
               <el-button type="danger" slot="reference" icon="el-icon-delete-solid" plain></el-button>
             </el-popconfirm>
           </template>
@@ -107,7 +123,14 @@
   </div>
 </template>
 
-
+<style>
+.el-select .el-input {
+  width: 100px;
+}
+.input-with-select .el-input-group__prepend {
+  background-color: #fff;
+}
+</style>
 
 
 <script>
@@ -123,24 +146,32 @@ export default {
       params: {
         pageNum: 1,
         pagesize: 10,
-
         path: '/'
       },
+      rootPath: '/',
+      nowPath: '',
       createPath: '',
       dialogFormVisible: false,
       // createFileForm: false,
       uploadFileForm: false,
       fileList: [],
-      formLabelWidth: '70px'
+      formLabelWidth: '70px',
+      input: '',
+      select: '',
+      statusLists:[{id:1, status_name:'根目录'},
+                   {id:2, status_name:'当前目录'}]
     }
   },
   created() {
     this.load()
+    this.nowPath = this.params.path
+    this.select = this.statusLists[0].id
   },
 
   methods: {//方法
     /** 调用分页API,加载数据 **/
     load() {
+      this.nowPath = this.params.path
       request.get('/hdfs/detailFile', {params: this.params}).then(res => {
         if (res.code === '200') {
           this.tableData = res.data.list
@@ -172,6 +203,18 @@ export default {
           this.dialogFormVisible = false
           this.load()
         } else {
+          this.$notify.error(res.msg)
+        }
+      })
+    },
+    /** 删除文件及文件夹 **/
+    del(path) {/** 调用删除API **/ //传递ID给后端，
+      request.post("/hdfs/delFile", path).then(res => {
+          console.log(this.params.path)
+        if (res.code === '200') {
+          this.$notify.success("删除成功")
+          this.load()
+        }else {
           this.$notify.error(res.msg)
         }
       })

@@ -56,7 +56,7 @@ public class AdminController {
      * @Param [id]
      * @return com.banksy.lm_server.common.config.Result
      **/
-    @DeleteMapping("/delete/{userid}")
+    @DeleteMapping("/delete/{adminId}")
     public Result deleteById(@PathVariable String adminId) {
         adminService.deleteById(adminId);
         return Result.success();

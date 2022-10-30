@@ -2,13 +2,10 @@ package com.banksy.lm_server.modules.hadoop.controller;
 
 import com.banksy.lm_server.common.config.Result;
 import com.banksy.lm_server.modules.hadoop.controller.request.HdfsPageRequest;
-import com.banksy.lm_server.modules.hadoop.entity.Hdfs;
 import com.banksy.lm_server.modules.hadoop.mutidatasource.HdfsSource;
 import com.banksy.lm_server.modules.hadoop.service.HdfsService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
-
-import java.util.List;
 
 /**
  * [/detailFile]    获取文件详细信息
@@ -98,8 +95,9 @@ public class HdfsController {
      * @param path
      * @return boolean
      **/
-    @GetMapping("/delFile")
-    public Result del(String path){
+    @PostMapping("/delFile")
+    public Result delete(@RequestBody String path){
+        System.out.println(path);
         return Result.success(hadoopTemplate.delFileDir(path));
     }
 

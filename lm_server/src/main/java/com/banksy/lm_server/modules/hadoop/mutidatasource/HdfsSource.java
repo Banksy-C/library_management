@@ -3,9 +3,7 @@ package com.banksy.lm_server.modules.hadoop.mutidatasource;
 import com.banksy.lm_server.modules.hadoop.entity.Hdfs;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
-import org.apache.hadoop.fs.FileStatus;
-import org.apache.hadoop.fs.FileSystem;
-import org.apache.hadoop.fs.Path;
+import org.apache.hadoop.fs.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnBean;
@@ -17,8 +15,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * [/detailFile]    获取文件详细信息
- * [/createFile]    创建文件夹
+ * [detailFile]    获取目录下，文件详细信息--1
+ * [createFile]    创建文件夹--1
  * [/uploadFile]    上传文件
  * [/downloadFile]  下载文件
  * [/delFile]       删除文件
@@ -39,6 +37,7 @@ public class HdfsSource {
     @Value("${hdfs.name-node}")
     private String nameNode;
 
+    /* 系统主目录 */
     @Value("${hdfs.namespace:/}")
     private String nameSpace;
 
@@ -48,7 +47,67 @@ public class HdfsSource {
 
     @PostConstruct//被@PostConstruct修饰的方法会在服务器加载Servlet的时候运行，并且只会被服务器执行一次。PostConstruct在构造函数之后执行，init（）方法之前执行。
     public void init(){//系统初始化之前看一下路径是否存在，不存在就创建出来
-        existDir(nameSpace,true);
+        existDir("/",true);
+    }
+
+
+    /**
+     * [标准化路径；但不判空，若空：返回主目录]
+     * @author banksy
+     * @param originalPath 传入待标准化的路径参数
+     * @param prefix true为获取-服务器路径，false为获取-主目录路径
+     * @return String is not null
+     **/
+    public String normPath (String originalPath, boolean prefix) {
+        String resultPath = null;
+        if (prefix) {//获取-服务器路径
+            if (originalPath.startsWith("/")) {
+                resultPath = nameNode + nameSpace + originalPath;
+            }else {
+                resultPath = nameNode + nameSpace + '/' + originalPath;
+            }
+        }else {//获取-主目录路径
+            if (originalPath.startsWith("/")) {
+                resultPath = nameSpace + originalPath;
+            }else {
+                resultPath = nameSpace + '/' + originalPath;
+            }
+        }
+        return resultPath;
+    }
+
+    /** 创建文件夹 **/
+    public boolean createFile(String srcFile){
+        return existDir(srcFile,true);
+    }
+
+    /**
+     * 创建文件夹 & 判断路径是否存在
+     * @param Path 文件路径，传入 /mydata/ 后的地址
+     * @param create  true为创建文件，false判断路径是否存在
+     * @return
+     */
+    private boolean existDir(String Path, boolean create){
+        boolean flag = false;
+        if(StringUtils.isBlank(Path)){//返回字符串，判断路径是否为空
+            throw new IllegalArgumentException("filePath不能为空");
+        }
+        try{
+            Path path = new Path(normPath(Path, false));
+            System.out.println(path);
+
+            if (create){
+                if (!fileSystem.exists(path)){
+                    fileSystem.mkdirs(path);
+                }//若存在路径打印已存在
+            }
+            if (fileSystem.exists(path)){//判断路径是否存在
+                flag = true;
+            }
+        }catch (Exception e){
+            log.error("创建失败！", e);
+        }
+        return flag;
     }
 
 
@@ -64,21 +123,24 @@ public class HdfsSource {
      * @param srcFile
      * @return List<Hdfs>
      **/
-    private List<Hdfs> getFilesInformation(String srcFile) {
+    public List<Hdfs> getFilesInformation(String srcFile) {
         List<Hdfs> hdfsList = new ArrayList<>();
         String destPath = null;//目的路径
         // 目的路径
         if(StringUtils.isBlank(srcFile)) {//若srcFile为空，转到制定根路径
-            destPath = nameNode + nameSpace;
+            destPath = nameSpace;
         }
         if (StringUtils.isNotBlank(srcFile)) {//若srcFile不为空
-            destPath = nameNode + nameSpace + srcFile;
+            destPath = normPath(srcFile, false);
         }
         //循环从数组中取出来放进list里
         try {
             FileStatus[] statuses = fileSystem.listStatus(new Path(destPath));
+
             for (FileStatus status : statuses) {
                 Hdfs hdfs = new Hdfs();
+                hdfs.setPath(StringUtils.substringAfter(status.getPath().toString(), nameNode + nameSpace));
+                //当前路径，获取服务器之后的路径
                 hdfs.setName(status.getPath().getName());
                 hdfs.setPermission(String.valueOf(status.getPermission()));
                 hdfs.setOwner(status.getOwner());
@@ -90,48 +152,12 @@ public class HdfsSource {
 
                 hdfsList.add(hdfs);
             }
-
 //            hdfsList.addAll(Arrays.stream(statuses).collect(Collectors.toList()));
         } catch (IOException e) {
             e.printStackTrace();
         }
         return hdfsList;
     }
-
-    /** 创建文件夹 **/
-    public boolean createFile(String srcFile){
-//        String destPath = nameNode + srcFile;
-        String destPath = nameSpace + '/' + srcFile;
-        return existDir(destPath,true);
-    }
-
-    /**
-     * 创建文件夹
-     * @param Path 文件路径，传入 /mydata/ 后的地址
-     * @param create 确认创建
-     * @return
-     */
-    public boolean existDir(String Path, boolean create){
-        boolean flag = false;
-        if(StringUtils.isBlank(Path)){//返回字符串，判断路径是否为空
-            throw new IllegalArgumentException("filePath不能为空");
-        }
-        try{
-            Path path = new Path(Path);
-            if (create){
-                if (!fileSystem.exists(path)){
-                    fileSystem.mkdirs(path);
-                }//若存在路径打印已存在
-            }
-            if (fileSystem.exists(path)){//创建后判断一下是否是文件夹
-                flag = true;
-            }
-        }catch (Exception e){
-            log.error("", e);
-        }
-        return flag;
-    }
-
 
 
     /** 文件上传 **/
@@ -221,15 +247,12 @@ public class HdfsSource {
 
     /**
      * 删除文件或者文件目录
-     * @param path      要删除的路径
+     * @param path 要删除的路径
      **/
     private boolean rmdir(String path) {
         boolean flag = false;
-        //要判断带 / 传进来
-
         if(StringUtils.isNotBlank(path)){//若路径不为空，进入
-            path = nameSpace + path;//补全路径
-            Path destPath = new Path(path);
+            Path destPath = new Path(normPath(path, false));
             try {
                 //参数解读：参数一：要删除的路径；参数二：是否递归删除；
                 fileSystem.delete(destPath,true);
@@ -237,7 +260,7 @@ public class HdfsSource {
                     flag = true;
                 }
             } catch (IllegalArgumentException | IOException e) {
-                log.error("", e);
+                log.error("删除失败！", e);
             }
         }
         return flag;
