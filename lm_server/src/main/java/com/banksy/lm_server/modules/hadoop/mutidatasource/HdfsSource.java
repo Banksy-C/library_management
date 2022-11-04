@@ -136,11 +136,13 @@ public class HdfsSource {
         //循环从数组中取出来放进list里
         try {
             FileStatus[] statuses = fileSystem.listStatus(new Path(destPath));
-
             for (FileStatus status : statuses) {
                 Hdfs hdfs = new Hdfs();
+
+                if (status.isFile()) { hdfs.setType("file");}
+                if (status.isDirectory()) { hdfs.setType("directory");}
+                //当前路径，不包含服务器地址的路径
                 hdfs.setPath(StringUtils.substringAfter(status.getPath().toString(), nameNode + nameSpace));
-                //当前路径，获取服务器之后的路径
                 hdfs.setName(status.getPath().getName());
                 hdfs.setPermission(String.valueOf(status.getPermission()));
                 hdfs.setOwner(status.getOwner());
@@ -149,7 +151,7 @@ public class HdfsSource {
                 hdfs.setModificationTime(String.valueOf(status.getModificationTime()));
                 hdfs.setReplication(String.valueOf(status.getReplication()));
                 hdfs.setBlockSize(String.valueOf(status.getBlockSize()));
-
+//                System.out.println(hdfs);
                 hdfsList.add(hdfs);
             }
 //            hdfsList.addAll(Arrays.stream(statuses).collect(Collectors.toList()));
