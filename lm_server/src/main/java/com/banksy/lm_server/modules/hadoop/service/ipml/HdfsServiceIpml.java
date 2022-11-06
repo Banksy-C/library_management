@@ -25,7 +25,7 @@ public class HdfsServiceIpml implements HdfsService {
     @Override
     public PageInfo<Hdfs> page(HdfsPageRequest hdfsPageRequest) {
         PageHelper.startPage(hdfsPageRequest.getPageNum(), hdfsPageRequest.getPageSize());//分页
-        List<Hdfs> hdfsList = hdfsSource.detailFile(hdfsPageRequest.getPath());
+        List<Hdfs> hdfsList = hdfsSource.detailPathDir(hdfsPageRequest.getPath());
         return new PageInfo<>(hdfsList);
     }
 }

@@ -45,7 +45,7 @@ class LmServerApplicationTests {
     @Test
     public void test () {
         String path = "/";
-        System.out.println(hdfsSource.getFilesInformation(path));
+        System.out.println(hdfsSource.getPathDirInformation(path));
     }
 
 }

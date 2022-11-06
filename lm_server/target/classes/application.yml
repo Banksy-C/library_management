@@ -1,0 +1,26 @@
+server:
+  port: 9090
+spring:
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://172.16.123.11:3306/library_management?useUnicode=true?characterEncoding=utf-8?serverTimezone=GMT%2b8
+    username: root
+    password: 123456
+mybatis:
+  mapper-locations: classpath:mapper/*.xml
+
+
+#hdfs
+hdfs:
+  name-node: hdfs://172.16.123.11:8020
+  namespace: /mydata #统一管理路径，作为根目录
+  replication: 2
+  username: banksy
+
+#log??
+logging:
+  level:
+    com:
+      hadoop:
+        demo:
+          dao: debug

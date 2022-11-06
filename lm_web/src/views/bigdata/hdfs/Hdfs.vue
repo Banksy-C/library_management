@@ -27,7 +27,10 @@
         <div style="margin-top: 10px">
           <el-input  placeholder="请输入路径" v-model="createPath" class="input-with-select">
             <el-select v-model="selectPath" slot="prepend" placeholder="请选择" @change="switchPath">
-              <el-option v-for="item in statusLists" :key="item.key" :label="item.status_name" :value="item.id" />
+              <el-option v-for="item in statusLists"
+                         :key="item.key"
+                         :label="item.status_name"
+                         :value="item.id" />
             </el-select>
           </el-input>
         </div>
@@ -105,13 +108,13 @@
   </div>
 </template>
 
-<style scoped>
-.el-select .el-input {
-  width: 100px;
-}
-.input-with-select .el-input-group__prepend {
-  background-color: #fff;
-}
+<style> /* scoped 关键字使失效*/
+  .el-select .el-input {
+    width: 130px;
+  }
+  .input-with-select .el-input-group__prepend {
+    background-color: #fff;
+  }
 </style>
 
 
@@ -136,8 +139,7 @@ export default {
       createPath: '',//创建文件目录路径
       dialogFormVisible: false,//创建文件目录小弹框
       selectPath: '',//下拉框中路径值
-      statusLists:[{id:'/', status_name:'根目录'},
-                   {id:'', status_name:'当前目录'}],
+      statusLists:[],
       uploadFileForm: false,//上传小弹框
       previousLevel: '/',//上级目录
       test: ''
@@ -146,13 +148,14 @@ export default {
   created() {
     this.load()
     this.nowPath = this.params.path//加载页面后，将路径存入nowPath
+
   },
 
   methods: {
     /** 调用分页API,加载数据 **/
     load() {
       this.nowPath = this.params.path//进入新路径时，存入nowPath
-      request.get('/hdfs/detailFile', {params: this.params}).then(res => {
+      request.get('/hdfs/detailPathDir', {params: this.params}).then(res => {
         if (res.code === '200') {
           this.tableData = res.data.list
           this.total = res.data.total
@@ -207,7 +210,7 @@ export default {
       //刷新数组
         if(this.nowPath === "/"){
           this.statusLists = [{id:'/', status_name:'根目录'}]
-        }else {
+        } else {
           this.statusLists = [{id: this.nowPath, status_name:'当前目录'},
                               {id:'/', status_name:'根目录'}]
         }
@@ -238,9 +241,9 @@ export default {
     },
     /** 跳转表单中目录或文件 **/
     loadRowName(type, name){
-      console.log(type)
+      // console.log(type)
       if (type === "directory") {
-        console.log(name)
+        // console.log(name)
         if (this.params.path === '/') {
           this.params.path = this.params.path + name
         } else {

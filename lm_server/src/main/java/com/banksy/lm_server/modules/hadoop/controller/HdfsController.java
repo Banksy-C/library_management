@@ -8,7 +8,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 /**
- * [/detailFile]    获取文件详细信息
+ * [/detailPathDir]    获取路径下目录信息
+ * [/detailFile]    获取单个文件详细信息
  * [/createFile]    创建文件夹
  * [/uploadFile]    上传文件
  * [/downloadFile]  下载文件
@@ -39,13 +40,18 @@ public class HdfsController {
      * @param  hdfsPageRequest 默认传入'/'【若传入第一个不是/需要报错，后期增加】     接口有问题，需要排查
      * @return Result
      **/
-    @GetMapping("/detailFile")
+    @GetMapping("/detailPathDir")
     public Result detail(HdfsPageRequest hdfsPageRequest){
 //        List<Hdfs> hdfsList = hadoopTemplate.detailFile(path);
 //        return Result.success(hdfsList);
 //        System.out.println(hdfsService.page(hdfsPageRequest));
         return Result.success(hdfsService.page(hdfsPageRequest));
     }
+
+    public Result detailFile(){
+        return Result.success(hdfsService);
+    }
+
 
     /***
      * [创建文件夹]

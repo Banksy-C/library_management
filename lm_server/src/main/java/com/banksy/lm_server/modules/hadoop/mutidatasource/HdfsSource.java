@@ -15,12 +15,13 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * [detailFile]    获取目录下，文件详细信息--1
+ * [detailPathDir]    获取路径下目录文件信息--1
+ * [detailFile]     获取文件详细信息
  * [createFile]    创建文件夹--1
- * [/uploadFile]    上传文件
- * [/downloadFile]  下载文件
- * [/delFile]       删除文件
- * [/moveFile]      文件更名及移动
+ * [uploadFile]    上传文件
+ * [downloadFile]  下载文件
+ * [delFile]       删除文件
+ * [moveFile]      文件更名及移动
  *
  * @Author banksy
  * @Data 2022/10/23 5:44 PM
@@ -111,10 +112,14 @@ public class HdfsSource {
     }
 
 
-    /** 获取路径下，所有文件详细信息 **/
-    public List<Hdfs> detailFile(String srcFile){
-        return getFilesInformation(srcFile);
+    /** 获取路径下目录文件信息 **/
+    public List<Hdfs> detailPathDir(String srcFile){
+        return getPathDirInformation(srcFile);
     }
+
+    /** 获取文件详细信息 **/
+
+
 
     /**
      * [获取路径下目录信息]
@@ -123,7 +128,7 @@ public class HdfsSource {
      * @param srcFile
      * @return List<Hdfs>
      **/
-    public List<Hdfs> getFilesInformation(String srcFile) {
+    public List<Hdfs> getPathDirInformation(String srcFile) {
         List<Hdfs> hdfsList = new ArrayList<>();
         String destPath = null;//目的路径
         // 目的路径
